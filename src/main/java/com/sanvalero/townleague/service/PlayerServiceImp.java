@@ -33,7 +33,8 @@ public class PlayerServiceImp implements PlayerService {
     @Override
     public Player modifyPlayer(long id, Player newPlayer) {
         Player player = playerRepository.findById(id).orElseThrow(()-> new PlayerNotFoundException(id));
-        return playerRepository.save(player);
+        newPlayer.setId(player.getId());
+        return playerRepository.save(newPlayer);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.sanvalero.townleague.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -24,7 +26,7 @@ public class Stadium {
     private int capacity;
 
     @Column
-    private String nameStadium;
+    private String name;
 
     @Column
     private boolean available;
@@ -36,6 +38,7 @@ public class Stadium {
     @Column
     private String direction;
 
-
-
+    @OneToMany(mappedBy = "stadium")
+    @JsonBackReference
+    private List<Match> matches;
 }

@@ -36,13 +36,13 @@ public class StadiumController {
 
     }
 
-    @PutMapping(value = "/stadiums{id}", produces = "application/json", consumes = "application/json")
+    @PutMapping(value = "/stadiums/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Stadium> modifyStadium(@PathVariable long id, @RequestBody Stadium newStadium) {
         Stadium stadium = stadiumService.modifyStadium(id, newStadium);
         return new ResponseEntity<>(newStadium, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/stadiums{id}", produces = "application/json")
+    @DeleteMapping(value = "/stadiums/{id}", produces = "application/json")
     public ResponseEntity<Response> deleteStadium(@PathVariable long id){
         stadiumService.deleteStadium(id);
         return new ResponseEntity<>(Response.noErrorResponse(), HttpStatus.OK);

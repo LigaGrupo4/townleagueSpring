@@ -1,40 +1,32 @@
 package com.sanvalero.townleague.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "players")
-public class Player {
+@Entity(name = "match_details")
+public class MatchDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
-    private String name;
-
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column
     private int goals;
 
     @Column
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate birthday;
+    private String condition;
 
-    @Column
-    private boolean sanctioned;
+    @ManyToOne
+    @JoinColumn(name = "match_id")
+    @JsonBackReference
+    private Match match;
 
     @ManyToOne
     @JoinColumn(name = "team_id")
-    @JsonBackReference
     private Team team;
 }

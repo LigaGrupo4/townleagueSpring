@@ -2,6 +2,7 @@ package com.sanvalero.townleague.controller;
 
 import com.sanvalero.townleague.domain.Player;
 import com.sanvalero.townleague.domain.Response;
+import com.sanvalero.townleague.domain.dto.PlayerDTO;
 import com.sanvalero.townleague.exception.PlayerNotFoundException;
 import com.sanvalero.townleague.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class PlayerController {
     }
 
     @PostMapping(value = "/players", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Player> addPlayer(@RequestBody Player player){
-        Player addedPlayer = playerService.addPlayer(player);
+    public ResponseEntity<Player> addPlayer(@RequestBody PlayerDTO playerDTO){
+        Player addedPlayer = playerService.addPlayer(playerDTO);
         return new ResponseEntity<>(addedPlayer, HttpStatus.OK);
     }
 

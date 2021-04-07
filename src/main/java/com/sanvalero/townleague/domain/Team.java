@@ -6,9 +6,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
-@NoArgsConstructor
 @Entity(name = "teams")
 public class Team {
 
@@ -31,4 +32,15 @@ public class Team {
 
     @Column(name = "is_last_champions")
     boolean isLastChampion;
+
+    public Team(){
+        players = new ArrayList<>();
+    }
+
+    @OneToMany(mappedBy = "team")
+    private List<Player> players;
+
+    public void addPlayer(Player player){
+        players.add(player);
+    }
 }

@@ -1,6 +1,7 @@
 package com.sanvalero.townleague.service;
 
 import com.sanvalero.townleague.domain.Player;
+import com.sanvalero.townleague.domain.dto.PlayerDTO;
 import com.sanvalero.townleague.exception.PlayerNotFoundException;
 import com.sanvalero.townleague.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,11 @@ public class PlayerServiceImp implements PlayerService {
     }
 
     @Override
-    public Player addPlayer(Player player) {
+    public Player addPlayer(PlayerDTO playerDTO) {
+        Player player = new Player();
+        player.setName(playerDTO.getPlayerName());
+        player.setLastName(playerDTO.getPlayerLastName());
+        player.setBirthday(playerDTO.getPlayerBirthday());
         return playerRepository.save(player);
     }
 

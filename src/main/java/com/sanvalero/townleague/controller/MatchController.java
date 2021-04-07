@@ -24,13 +24,13 @@ public class MatchController {
       return new ResponseEntity<>(matches, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/matches", produces = "application/json")
+    @GetMapping(value = "/matches/{id}", produces = "application/json")
     public ResponseEntity<Match> getMatch(long id){
         Match match = matchService.findById(id).orElseThrow(()->new MatchNotFoundException(id));
         return new ResponseEntity<>(match, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/matches/{id}", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/matches", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Match> addMatch(@RequestBody MatchDTO matchDTO) {
         Match addedMatch = matchService.addMatch(matchDTO);
         return new ResponseEntity<>(addedMatch, HttpStatus.OK);

@@ -30,7 +30,7 @@ public class MatchController {
         return new ResponseEntity<>(match, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/matches", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/matches/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Match> addMatch(@RequestBody MatchDTO matchDTO) {
         Match addedMatch = matchService.addMatch(matchDTO);
         return new ResponseEntity<>(addedMatch, HttpStatus.OK);

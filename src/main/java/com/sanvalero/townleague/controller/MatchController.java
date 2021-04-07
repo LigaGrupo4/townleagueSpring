@@ -18,15 +18,17 @@ public class MatchController {
     @Autowired
     MatchService matchService;
 
-
     @GetMapping(value = "/matches", produces = "application/json")
     public ResponseEntity<Set<Match>> getMatches(){
-
       Set<Match> matches = matchService.findAll();
       return new ResponseEntity<>(matches, HttpStatus.OK);
-
     }
 
+    @GetMapping(value = "/matches", produces = "application/json")
+    public ResponseEntity<Match> getMatch(long id){
+        Match match = matchService.findById(id).orElseThrow(()->new MatchNotFoundException(id));
+        return new ResponseEntity<>(match, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/matches", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Match> addMatch(@RequestBody MatchDTO matchDTO) {
@@ -53,7 +55,6 @@ public class MatchController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Response> handlerException(MatchNotFoundException pnfe){
         Response response = Response.errorResponse(Response.NOT_FOUND, pnfe.getMessage());
-
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 

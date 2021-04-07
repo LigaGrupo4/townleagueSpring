@@ -18,16 +18,17 @@ public class StadiumController {
     @Autowired
     StadiumService stadiumService;
 
-
-
     @GetMapping(value = "/stadiums", produces = "application/json")
     public ResponseEntity<Set<Stadium>> getStadiums(){
-
         Set<Stadium> stadiums = stadiumService.findAllStadiums();
         return new ResponseEntity<>(stadiums, HttpStatus.OK);
-
     }
 
+    @GetMapping(value = "/stadiums/{id}", produces = "application/json")
+    public ResponseEntity<Stadium> getStadium(long id){
+        Stadium stadium = stadiumService.findById(id).orElseThrow(()->new StadiumNotFoundException(id));
+        return new ResponseEntity<>(stadium, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/stadiums", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Stadium> addStadium(@RequestBody Stadium stadium) {
@@ -53,7 +54,6 @@ public class StadiumController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Response> handlerException(MatchNotFoundException pnfe){
         Response response = Response.errorResponse(Response.NOT_FOUND, pnfe.getMessage());
-
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 

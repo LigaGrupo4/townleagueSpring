@@ -1,5 +1,6 @@
 package com.sanvalero.townleague.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,12 +36,21 @@ public class Team {
 
     public Team(){
         players = new ArrayList<>();
+        matchDetails = new ArrayList<>();
     }
 
     @OneToMany(mappedBy = "team")
     private List<Player> players;
 
+    @OneToMany(mappedBy = "team")
+    @JsonBackReference
+    private List<MatchDetail> matchDetails;
+
     public void addPlayer(Player player){
         players.add(player);
+    }
+
+    public void addDetail(MatchDetail detail){
+        matchDetails.add(detail);
     }
 }

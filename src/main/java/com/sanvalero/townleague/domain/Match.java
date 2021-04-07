@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "matches")
 public class Match {
 
@@ -32,6 +33,22 @@ public class Match {
     @Column
     private String record;
 
+    public Match() {
+        matchDetails = new ArrayList<>();
+    }
 
+    @ManyToOne
+    @JoinColumn(name = "stadium_id")
+    private Stadium stadium;
 
+    @ManyToOne
+    @JoinColumn(name = "referee_id")
+    private Referee referee;
+
+    @OneToMany(mappedBy = "match")
+    private List<MatchDetail> matchDetails;
+
+    public void addDetail(MatchDetail detail){
+        matchDetails.add(detail);
+    }
 }

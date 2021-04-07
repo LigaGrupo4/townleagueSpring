@@ -2,6 +2,7 @@ package com.sanvalero.townleague.controller;
 
 import com.sanvalero.townleague.domain.Match;
 import com.sanvalero.townleague.domain.Response;
+import com.sanvalero.townleague.domain.dto.MatchDTO;
 import com.sanvalero.townleague.exception.MatchNotFoundException;
 import com.sanvalero.townleague.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,20 +29,20 @@ public class MatchController {
 
 
     @PostMapping(value = "/matches", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Match> addMatch(@RequestBody Match match) {
-        Match addedMatch = matchService.addMatch(match);
+    public ResponseEntity<Match> addMatch(@RequestBody MatchDTO matchDTO) {
+        Match addedMatch = matchService.addMatch(matchDTO);
         return new ResponseEntity<>(addedMatch, HttpStatus.OK);
 
     }
 
-    @PutMapping(value = "/matches{id}", produces = "application/json", consumes = "application/json")
+    @PutMapping(value = "/matches/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Match> modifyMatch(@PathVariable long id, @RequestBody Match newMatch) {
         Match match = matchService.modifyMatch(id, newMatch);
         return new ResponseEntity<>(match, HttpStatus.OK);
     }
 
 
-    @DeleteMapping(value = "/matches{id}", produces = "application/json")
+    @DeleteMapping(value = "/matches/{id}", produces = "application/json")
     public ResponseEntity<Response> deleteMatch(@PathVariable long id){
         matchService.deleteMatch(id);
         return new ResponseEntity<>(Response.noErrorResponse(), HttpStatus.OK);

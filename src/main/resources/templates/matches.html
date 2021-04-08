@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Matches</title>
+</head>
+<body>
+    <h1>Lista de partidos</h1>
+    <ul th:each="match : ${matches}">
+        <li><p th:text="${match.id}"></p>
+            <p th:text="${match.stadium}"></p>
+            <p th:text="${match.referee}"></p>
+            <ul th:each="matchDetail : ${match.matchDetails}">
+                <li><p th:text="${matchDetail.team}"></p>
+                    <p th:text="${matchDetail.goals}"></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

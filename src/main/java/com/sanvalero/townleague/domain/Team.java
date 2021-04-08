@@ -53,4 +53,9 @@ public class Team {
     public void addDetail(MatchDetail detail){
         matchDetails.add(detail);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

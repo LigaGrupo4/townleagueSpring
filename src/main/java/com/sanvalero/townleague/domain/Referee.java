@@ -37,4 +37,9 @@ public class Referee {
     @OneToMany(mappedBy = "referee")
     @JsonBackReference
     private List<Match> matches;
+
+    @Override
+    public String toString() {
+        return name + " " + lastName;
+    }
 }

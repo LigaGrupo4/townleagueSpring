@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Referee</title>
+</head>
+<body>
+<h1>Refere</h1>
+
+<ul th:each="referee : ${referees}">
+    <li><p th:text="${referee.name}"></li>
+
+</ul>
+</body>
+</html>

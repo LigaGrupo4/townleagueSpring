@@ -41,4 +41,9 @@ public class Stadium {
     @OneToMany(mappedBy = "stadium")
     @JsonBackReference
     private List<Match> matches;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

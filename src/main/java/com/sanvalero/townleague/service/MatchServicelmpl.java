@@ -85,6 +85,8 @@ public class MatchServicelmpl implements MatchService {
         localMatchDetail = matchDetailRepository.save(localMatchDetail);
         visitingMatchDetail = matchDetailRepository.save(visitingMatchDetail);
 
+        localTeam.addDetail(localMatchDetail);
+        visitingTeam.addDetail(visitingMatchDetail);
         newMatch.addDetail(localMatchDetail);
         newMatch.addDetail(visitingMatchDetail);
 

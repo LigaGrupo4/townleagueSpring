@@ -2,14 +2,16 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Referee</title>
+    <title>Lista Referees</title>
 </head>
 <body>
-<h1>Refere</h1>
+<h1>Referees</h1>
 
-<ul th:each="referee : ${referees}">
-    <li><p th:text="${referee.name}"></li>
+    <ul th:each="referees : ${referee}">
 
-</ul>
+        <li><p th:text="${referees.name}"></li>
+        <li><p th:text="${referees.lastName}"></li>
+        <br>
+    </ul>
 </body>
 </html>

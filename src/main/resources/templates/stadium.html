@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Stadium</title>
+</head>
+<body>
+    <h1>Estadios</h1>
+
+    <ul th:each="stadium : ${stadiums}">
+        <li><p th:text="${stadium.name}">
+            <p th:text="${stadium.direction}">
+            <p th:text="${stadium.capacity}"></p>
+        </li>
+    </ul>
+</body>
+</html>

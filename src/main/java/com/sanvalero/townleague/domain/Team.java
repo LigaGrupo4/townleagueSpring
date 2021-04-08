@@ -16,23 +16,23 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     @Column
-    String name;
+    private String name;
 
     @Column(name = "number_of_players")
-    int numPlayers;
+    private int numPlayers;
 
     @Column
-    int points;
+    private int points;
 
     @Column(name = "creation_date")
     @JsonFormat(pattern = "dd/MM/yyyy")
-    LocalDate creationDate;
+    private LocalDate creationDate;
 
     @Column(name = "is_last_champions")
-    boolean isLastChampion;
+    private boolean isLastChampion;
 
     public Team(){
         players = new ArrayList<>();

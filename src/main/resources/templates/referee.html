@@ -3,15 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista Referees</title>
+    <link rel="stylesheet" th:href="@{'css/styles.css'}">
+
 </head>
 <body>
-<h1>Referees</h1>
+<header>
+    <h1>TownLeague</h1>
+</header>
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/web-referees">Referees</a>
 
-    <ul th:each="referees : ${referee}">
+    <div class="dropdown">
+        <button class="dropbtn">Matches
+            <i class="fa fa-caret-down"></i>
+        </button>
 
-        <li><p th:text="${referees.name}"></li>
-        <li><p th:text="${referees.lastName}"></li>
-        <br>
-    </ul>
+        <div class="dropdown-content">
+            <a href="/web-matches">Matches</a>
+            <a href="/register-matches" target="_blank">Add</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">CreLis
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="/web-stadiums">See Stadiums</a>
+            <a href="/">Crear</a>
+        </div>
+    </div>
+</div>
+
+
+<section id="pricing" class="pricing">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h3>Check our <span>Referees</span></h3>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="box">
+                    <ul th:each="referees : ${referee}">
+                        <li><p th:text="${referees.name}"></p>
+                            <p th:text="${referees.lastName}"></p>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+</section>
 </body>
 </html>

@@ -3,19 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Matches</title>
+    <link rel="stylesheet" th:href="@{'css/styles.css'}">
+
+
 </head>
 <body>
-    <h1>Lista de partidos</h1>
-    <ul th:each="match : ${matches}">
-        <li><p th:text="${match.id}"></p>
-            <p th:text="${match.stadium}"></p>
-            <p th:text="${match.referee}"></p>
-            <ul th:each="matchDetail : ${match.matchDetails}">
-                <li><p th:text="${matchDetail.team}"></p>
-                    <p th:text="${matchDetail.goals}"></p>
-                </li>
-            </ul>
-        </li>
-    </ul>
+<header>
+    <h1>TownLeague</h1>
+</header>
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/web-referees">Referees</a>
+
+    <div class="dropdown">
+        <button class="dropbtn">Matches
+            <i class="fa fa-caret-down"></i>
+        </button>
+
+        <div class="dropdown-content">
+            <a href="/web-matches">Matches</a>
+            <a href="/register-matches" target="_blank">Add</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">CreLis
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="/web-stadiums">See Stadiums</a>
+            <a href="/">Crear</a>
+        </div>
+    </div>
+</div>
+
+
+<section id="pricing" class="pricing">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h3>Check our <span>Matches</span></h3>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="box">
+                    <ul th:each="match : ${matches}">
+                        <li><p th:text="${match.id}"></p>
+                            <p th:text="${match.stadium}"></p>
+                            <p th:text="${match.referee}"></p>
+                            <ul th:each="matchDetail : ${match.matchDetails}">
+                                <li><p th:text="${matchDetail.team}"></p>
+                                    <p th:text="${matchDetail.goals}"></p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    </div>
+</section>
 </body>
 </html>

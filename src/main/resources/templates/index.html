@@ -1,11 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Inicio</title>
+    <link rel="stylesheet" th:href="@{'css/styles.css'}">
+
 </head>
+
 <body>
-    <h1>INicio</h1>
+<header>
+    <h1>TownLeague</h1>
+</header>
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/web-referees">Referees</a>
+
+    <div class="dropdown">
+        <button class="dropbtn">Matches
+            <i class="fa fa-caret-down"></i>
+        </button>
+
+        <div class="dropdown-content">
+            <a href="/web-matches">Matches</a>
+            <a href="/register-matches" target="_blank">Add</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">CreLis
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="/web-stadiums">See Stadiums</a>
+            <a href="/">Crear</a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

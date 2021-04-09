@@ -10,6 +10,7 @@ import com.sanvalero.townleague.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -102,7 +103,12 @@ public class MatchServicelmpl implements MatchService {
 
     @Override
     public void deleteMatch(long id) {
-    matchRepository.findById(id).orElseThrow(() -> new MatchNotFoundException(id));
-    matchRepository.deleteById(id);
+        Match match = matchRepository.findById(id).orElseThrow(() -> new MatchNotFoundException(id));
+        List<MatchDetail> matchDetails = match.getMatchDetails();
+        for(MatchDetail matchDetail : matchDetails){
+            long detailId = matchDetail.getId();
+            matchDetailRepository.deleteById(detailId);
+        }
+        matchRepository.deleteById(id);
     }
 }

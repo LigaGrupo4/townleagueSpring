@@ -8,10 +8,9 @@
 <h1>Referees</h1>
 
     <ul th:each="referees : ${referee}">
-
-        <li><p th:text="${referees.name}"></li>
-        <li><p th:text="${referees.lastName}"></li>
-        <br>
+        <li><p th:text="${referees.name}">
+            <p th:text="${referees.lastName}">
+        </li>
     </ul>
 </body>
 </html>

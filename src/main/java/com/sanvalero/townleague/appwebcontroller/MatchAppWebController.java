@@ -6,10 +6,7 @@ import com.sanvalero.townleague.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Set;
@@ -40,5 +37,9 @@ public class MatchAppWebController {
         return new RedirectView("/web-matches");
     }
 
-
+    @GetMapping(value = "/delete-match/{id}")
+    public RedirectView deleteMatch(Model model, @PathVariable("id") long id){
+        matchService.deleteMatch(id);
+        return new RedirectView("/web-matches");
+    }
 }

@@ -15,6 +15,8 @@
                     <p th:text="${matchDetail.goals}"></p>
                 </li>
             </ul>
+            <p><a th:href="@{'delete-match/' + ${match.id}}">Eliminar</a></p>
+            <p><a th:href="@{''}">Introducir resultado</a></p>
         </li>
     </ul>
 </body>

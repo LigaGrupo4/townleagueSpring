@@ -10,6 +10,6 @@ import java.util.Set;
 @Repository
 public interface TeamRepository extends CrudRepository<Team, Long> {
 
-    Set<Team> findAll();
+    Set<Team> findAllOrderByPointsDesc();
     Optional<Team> findByName(String name);
 }

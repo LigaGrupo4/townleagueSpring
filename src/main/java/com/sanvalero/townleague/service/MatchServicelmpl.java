@@ -2,6 +2,7 @@ package com.sanvalero.townleague.service;
 
 import com.sanvalero.townleague.domain.*;
 import com.sanvalero.townleague.domain.dto.MatchDTO;
+import com.sanvalero.townleague.domain.dto.ResultDTO;
 import com.sanvalero.townleague.exception.MatchNotFoundException;
 import com.sanvalero.townleague.exception.RefereeNotFoundException;
 import com.sanvalero.townleague.exception.StadiumNotFoundException;
@@ -110,5 +111,38 @@ public class MatchServicelmpl implements MatchService {
             matchDetailRepository.deleteById(detailId);
         }
         matchRepository.deleteById(id);
+    }
+
+    @Override
+    public void insertResult(long id, ResultDTO resultDTO) {
+        Match match = matchRepository.findById(id).orElseThrow(()-> new MatchNotFoundException(id));
+        List<MatchDetail> matchDetails = match.getMatchDetails();
+        Team localTeam = null;
+        Team visitingTeam = null;
+        for(MatchDetail matchDetail : matchDetails){
+            if (matchDetail.getCondition().equals(LOCAL_CONDITION)){
+                matchDetail.setGoals(resultDTO.getLocalGoals());
+                localTeam = matchDetail.getTeam();
+            }else {
+                matchDetail.setGoals(resultDTO.getVisitorGoals());
+                visitingTeam = matchDetail.getTeam();
+            }
+            matchDetailRepository.save(matchDetail);
+        }
+
+        int pointsLocalTeam = localTeam.getPoints();
+        int pointsVisitingTeam = visitingTeam.getPoints();
+
+        if(resultDTO.getLocalGoals()>resultDTO.getVisitorGoals()){
+            localTeam.setPoints(pointsLocalTeam+3);
+        } else if(resultDTO.getLocalGoals()<resultDTO.getVisitorGoals()){
+            visitingTeam.setPoints(pointsVisitingTeam+3);
+        } else {
+            localTeam.setPoints(pointsLocalTeam+1);
+            visitingTeam.setPoints(pointsVisitingTeam+1);
+        }
+
+        teamRepository.save(localTeam);
+        teamRepository.save(visitingTeam);
     }
 }

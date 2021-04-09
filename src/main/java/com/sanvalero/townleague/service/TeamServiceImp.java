@@ -25,7 +25,7 @@ public class TeamServiceImp implements TeamService{
 
     @Override
     public Set<Team> findAllTeams() {
-        return teamRepository.findAll();
+        return teamRepository.findAllOrderByPointsDesc();
     }
 
     @Override

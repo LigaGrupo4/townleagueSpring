@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import java.util.Set;
 @Tag(name = "Matches", description = "Partidos de la liga")
 public class MatchController {
 
+    private final Logger logger = LoggerFactory.getLogger(MatchController.class);
+
     @Autowired
     MatchService matchService;
 
@@ -33,8 +37,10 @@ public class MatchController {
     })
     @GetMapping(value = "/matches", produces = "application/json")
     public ResponseEntity<Set<Match>> getMatches(){
-      Set<Match> matches = matchService.findAll();
-      return new ResponseEntity<>(matches, HttpStatus.OK);
+        logger.info("init getMatches");
+        Set<Match> matches = matchService.findAll();
+        logger.info("end getMatches");
+        return new ResponseEntity<>(matches, HttpStatus.OK);
     }
 
     @Operation(summary = "Obtiene un partido determinado")
@@ -46,7 +52,9 @@ public class MatchController {
     })
     @GetMapping(value = "/matches/{id}", produces = "application/json")
     public ResponseEntity<Match> getMatch(long id){
+        logger.info("init getMatch");
         Match match = matchService.findById(id).orElseThrow(()->new MatchNotFoundException(id));
+        logger.info("end getMatch");
         return new ResponseEntity<>(match, HttpStatus.OK);
     }
 
@@ -59,7 +67,9 @@ public class MatchController {
     })
     @PostMapping(value = "/matches", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Match> addMatch(@RequestBody MatchDTO matchDTO) {
+        logger.info("init addMatch");
         Match addedMatch = matchService.addMatch(matchDTO);
+        logger.info("end addMatch");
         return new ResponseEntity<>(addedMatch, HttpStatus.OK);
 
     }
@@ -73,7 +83,9 @@ public class MatchController {
     })
     @PutMapping(value = "/matches/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Match> modifyMatch(@PathVariable long id, @RequestBody Match newMatch) {
+        logger.info("init modifyMatch");
         Match match = matchService.modifyMatch(id, newMatch);
+        logger.info("end modifyMatch");
         return new ResponseEntity<>(match, HttpStatus.OK);
     }
 
@@ -86,15 +98,18 @@ public class MatchController {
     })
     @DeleteMapping(value = "/matches/{id}", produces = "application/json")
     public ResponseEntity<Response> deleteMatch(@PathVariable long id){
+        logger.info("init deleteMatch");
         matchService.deleteMatch(id);
+        logger.info("end deleteMatch");
         return new ResponseEntity<>(Response.noErrorResponse(), HttpStatus.OK);
     }
 
     @ExceptionHandler(MatchNotFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Response> handlerException(MatchNotFoundException pnfe){
-        Response response = Response.errorResponse(Response.NOT_FOUND, pnfe.getMessage());
+    public ResponseEntity<Response> handlerException(MatchNotFoundException mnfe){
+        Response response = Response.errorResponse(Response.NOT_FOUND, mnfe.getMessage());
+        logger.error(mnfe.getMessage(), mnfe);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }

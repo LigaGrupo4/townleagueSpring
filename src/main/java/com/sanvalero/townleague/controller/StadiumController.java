@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import java.util.Set;
 @Tag(name = "Stadiums", description = "Estadios de la liga")
 public class StadiumController {
 
+    private final Logger logger = LoggerFactory.getLogger(StadiumController.class);
+
     @Autowired
     StadiumService stadiumService;
 
@@ -33,7 +37,9 @@ public class StadiumController {
     })
     @GetMapping(value = "/stadiums", produces = "application/json")
     public ResponseEntity<Set<Stadium>> getStadiums(){
+        logger.info("init getStadiums");
         Set<Stadium> stadiums = stadiumService.findAllStadiums();
+        logger.info("end getStadiums");
         return new ResponseEntity<>(stadiums, HttpStatus.OK);
     }
 
@@ -46,7 +52,9 @@ public class StadiumController {
     })
     @GetMapping(value = "/stadiums/{id}", produces = "application/json")
     public ResponseEntity<Stadium> getStadium(long id){
+        logger.info("init getStadium");
         Stadium stadium = stadiumService.findById(id).orElseThrow(()->new StadiumNotFoundException(id));
+        logger.info("end getStadium");
         return new ResponseEntity<>(stadium, HttpStatus.OK);
     }
 
@@ -57,7 +65,9 @@ public class StadiumController {
     })
     @PostMapping(value = "/stadiums", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Stadium> addStadium(@RequestBody Stadium stadium) {
+        logger.info("init addStadium");
         Stadium addedStadiums = stadiumService.addStadium(stadium);
+        logger.info("end addStadium");
      return new ResponseEntity<>(addedStadiums, HttpStatus.OK);
 
     }
@@ -71,7 +81,9 @@ public class StadiumController {
     })
     @PutMapping(value = "/stadiums/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Stadium> modifyStadium(@PathVariable long id, @RequestBody Stadium newStadium) {
+        logger.info("init modifyStadium");
         Stadium stadium = stadiumService.modifyStadium(id, newStadium);
+        logger.info("end modifyStadium");
         return new ResponseEntity<>(newStadium, HttpStatus.OK);
     }
 
@@ -84,15 +96,18 @@ public class StadiumController {
     })
     @DeleteMapping(value = "/stadiums/{id}", produces = "application/json")
     public ResponseEntity<Response> deleteStadium(@PathVariable long id){
+        logger.info("init deleteStadium");
         stadiumService.deleteStadium(id);
+        logger.info("end deleteStadium");
         return new ResponseEntity<>(Response.noErrorResponse(), HttpStatus.OK);
     }
 
     @ExceptionHandler(StadiumNotFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Response> handlerException(MatchNotFoundException pnfe){
-        Response response = Response.errorResponse(Response.NOT_FOUND, pnfe.getMessage());
+    public ResponseEntity<Response> handlerException(MatchNotFoundException snfe){
+        Response response = Response.errorResponse(Response.NOT_FOUND, snfe.getMessage());
+        logger.error(snfe.getMessage(), snfe);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 

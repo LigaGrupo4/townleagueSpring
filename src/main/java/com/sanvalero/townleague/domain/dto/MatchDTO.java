@@ -1,5 +1,6 @@
 package com.sanvalero.townleague.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,6 @@ public class MatchDTO {
     private String refereeLastName;
 
     @Schema(description = "Fefcha del partido", example = "10/04/2021")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate matchDate;
 }

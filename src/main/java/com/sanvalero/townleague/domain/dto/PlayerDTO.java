@@ -1,5 +1,6 @@
 package com.sanvalero.townleague.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,6 @@ public class PlayerDTO {
     private String playerLastName;
 
     @Schema(description = "Fecha de nacimiento del jugador", example = "05/05/1995")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate playerBirthday;
 }

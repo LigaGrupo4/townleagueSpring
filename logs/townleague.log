@@ -315,3 +315,38 @@ com.sanvalero.townleague.exception.MatchMandatoryFieldsException: Todos los camp
 2021-04-10 13:40:01,056 INFO com.sanvalero.townleague.service.MatchServicelmpl [http-nio-8080-exec-2] Teams checked
 2021-04-10 13:40:01,067 INFO com.sanvalero.townleague.service.MatchServicelmpl [http-nio-8080-exec-2] end addMatch
 2021-04-10 13:40:01,079 INFO com.sanvalero.townleague.controller.MatchController [http-nio-8080-exec-2] end addMatch
+2021-04-10 15:42:25,929 INFO org.springframework.boot.StartupInfoLogger [main] Starting TownleagueApplication using Java 11.0.9.1 on DESKTOP-32C0MJJ with PID 7704 (C:\Users\aritz\IdeaProjects\townleague\target\classes started by aritz in C:\Users\aritz\IdeaProjects\townleague)
+2021-04-10 15:42:25,932 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-04-10 15:42:26,447 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-10 15:42:26,497 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 45 ms. Found 6 JPA repository interfaces.
+2021-04-10 15:42:27,017 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-04-10 15:42:27,027 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-04-10 15:42:27,027 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-04-10 15:42:27,027 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-04-10 15:42:27,117 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-04-10 15:42:27,117 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1150 ms
+2021-04-10 15:42:27,257 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-10 15:42:27,297 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.4.29.Final
+2021-04-10 15:42:27,377 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-04-10 15:42:27,447 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2021-04-10 15:42:27,567 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2021-04-10 15:42:27,577 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2021-04-10 15:42:28,087 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-10 15:42:28,097 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-10 15:42:28,417 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-10 15:42:28,467 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-10 15:42:28,537 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2021-04-10 15:42:28,846 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-04-10 15:42:28,867 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-04-10 15:42:28,872 INFO org.springframework.boot.StartupInfoLogger [main] Started TownleagueApplication in 3.31 seconds (JVM running for 3.628)
+2021-04-10 15:45:00,017 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-10 15:45:00,017 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-04-10 15:45:00,017 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 0 ms
+2021-04-10 15:45:00,048 INFO com.sanvalero.townleague.appwebcontroller.MatchAppWebController [http-nio-8080-exec-1] init matches
+2021-04-10 15:45:00,148 INFO com.sanvalero.townleague.appwebcontroller.MatchAppWebController [http-nio-8080-exec-1] end matches
+2021-04-10 15:45:17,608 INFO com.sanvalero.townleague.appwebcontroller.RefereeAppWebController [http-nio-8080-exec-6] init showReferees
+2021-04-10 15:45:17,608 INFO com.sanvalero.townleague.appwebcontroller.RefereeAppWebController [http-nio-8080-exec-6] end showReferees
+2021-04-10 15:45:19,083 INFO com.sanvalero.townleague.appwebcontroller.StadiumAppWebController [http-nio-8080-exec-2] init showStadiums
+2021-04-10 15:45:19,083 INFO com.sanvalero.townleague.appwebcontroller.StadiumAppWebController [http-nio-8080-exec-2] end showStadiums
+2021-04-10 15:45:20,808 INFO com.sanvalero.townleague.appwebcontroller.MatchAppWebController [http-nio-8080-exec-5] init registerMatchForm
+2021-04-10 15:45:20,808 INFO com.sanvalero.townleague.appwebcontroller.MatchAppWebController [http-nio-8080-exec-5] end registerMatchForm

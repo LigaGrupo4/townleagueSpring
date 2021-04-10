@@ -19,8 +19,6 @@ import java.util.Set;
 @Controller
 public class MatchAppWebController {
 
-    private final Logger logger = LoggerFactory.getLogger(MatchAppWebController.class);
-
     @Autowired
     MatchService matchService;
 

@@ -14,6 +14,7 @@
 <div class="navbar">
     <a href="/">Home</a>
     <a href="/web-referees">Referees</a>
+    <a href="/web-stadiums">Stadiums</a>
 
     <div class="dropdown">
         <button class="dropbtn">Matches
@@ -21,7 +22,7 @@
         </button>
 
         <div class="dropdown-content">
-            <a href="/web-match">Matches</a>
+            <a href="/web-matches">Matches</a>
             <a href="/register-match" target="_blank">Add</a>
         </div>
     </div>
@@ -32,6 +33,7 @@
         <div class="dropdown-content">
             <a href="/web-stadiums">See Stadiums</a>
             <a href="/">Crear</a>
+
         </div>
     </div>
 </div>
@@ -44,23 +46,25 @@
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="box">
                     <ul th:each="match : ${matches}">
-                        <li><p th:text="${match.id}"></p>
-                            <p th:text="${match.stadium}"></p>
-                            <p th:text="${match.referee}"></p>
+                        <li><p class="spa" th:text="${match.stadium}"></p>
+                            <p class="spa" th:text="${match.referee}"></p>
                             <ul th:each="matchDetail : ${match.matchDetails}">
-                                <li><p th:text="${matchDetail.team}"></p>
-                                    <p th:text="${matchDetail.goals}"></p>
+                                <li><p class="spa" th:text="${matchDetail.team}"></p>
+                                    <p class="spa" th:text="${matchDetail.goals}"></p>
                                 </li>
                             </ul>
                             <p><a th:href="@{'delete-match/' + ${match.id}}">Eliminar</a></p>
                             <p><a th:href="@{'match/' + ${match.id} + '/insert-result'}">Introducir resultado</a></p>
                         </li>
+                        <p><a class="eliminar" th:href="@{'match/' + ${match.id} + '/insert-result'}">Resultado</a></p>
+                        <p><a class="eliminar" th:href="@{'delete-match/' + ${match.id}}">Eliminar</a></p>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 </section>
+
+
 </body>
 </html>

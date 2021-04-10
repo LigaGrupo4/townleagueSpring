@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Register Match</title>
+    <link rel="stylesheet" th:href="@{'css/styles.css'}">
 </head>
 <body>
     <h1>Registrar partido</h1>
+
     <form th:action="@{/register-match}" th:object="${matchDTOForm}" method="post">
         <ul>
             <li>Equipo local:<input type="text" th:field="*{localTeamName}"></li>
             <li>Equipo visitante:<input type="text" th:field="*{visitingTeamName}"></li>
             <li>Estadio:<input type="text" th:field="*{stadiumName}"></li>
-            <li>Árbitro:Nombre:<input type="text" th:field="*{refereeName}"> Apellido:<input type="text" th:field="*{refereeLastName}"></li>
+            <li>Nombre árbitro:<input type="text" th:field="*{refereeName}"> Apellido:<input type="text" th:field="*{refereeLastName}"></li>
             <li>Fecha:<input type="date" th:field="*{matchDate}"></li>
             <li><input type="submit" value="Registrar"></li>
         </ul>
+        <input type="submit" value="Registrar">
     </form>
+
+
 </body>
 </html>

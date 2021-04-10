@@ -13,6 +13,7 @@
 <div class="navbar">
     <a href="/">Home</a>
     <a href="/web-referees">Referees</a>
+    <a href="/web-stadiums">Stadiums</a>
 
     <div class="dropdown">
         <button class="dropbtn">Matches
@@ -24,15 +25,7 @@
             <a href="/register-match" target="_blank">Add</a>
         </div>
     </div>
-    <div class="dropdown">
-        <button class="dropbtn">CreLis
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="/web-stadiums">See Stadiums</a>
-            <a href="/">Crear</a>
-        </div>
-    </div>
+
 </div>
 <section id="pricing" class="pricing">
     <div class="container" data-aos="fade-up">
@@ -46,8 +39,8 @@
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="box">
                     <ul th:each="referees : ${referee}">
-                        <li><p th:text="${referees.name}"></p>
-                            <p th:text="${referees.lastName}"></p>
+                        <li><p class="spa" th:text="${referees.name}">
+                            <p class="spa" th:text="${referees.lastName}">
                         </li>
                     </ul>
                 </div>

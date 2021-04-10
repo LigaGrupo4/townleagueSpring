@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ import static com.sanvalero.townleague.domain.Response.NOT_FOUND;
 @Tag(name = "Players", description = "Jugadores de la liga")
 public class PlayerController {
 
+    private final Logger logger = LoggerFactory.getLogger(PlayerController.class);
+
     @Autowired
     PlayerService playerService;
 
@@ -35,7 +39,9 @@ public class PlayerController {
     })
     @GetMapping(value = "/players", produces = "application/json")
     public ResponseEntity<Set<Player>> getPlayers(){
+        logger.info("init getPlayers");
         Set<Player> players = playerService.findAllPlayers();
+        logger.info("end getPlayers");
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
 
@@ -48,7 +54,9 @@ public class PlayerController {
     })
     @GetMapping(value = "/players/{id}", produces = "application/json")
     public ResponseEntity<Player> getPlayer(@PathVariable long id){
+        logger.info("init getPlayer");
         Player player = playerService.findById(id).orElseThrow(()-> new PlayerNotFoundException(id));
+        logger.info("end getPlayer");
         return new ResponseEntity<>(player, HttpStatus.OK);
     }
 
@@ -59,7 +67,9 @@ public class PlayerController {
     })
     @PostMapping(value = "/players", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Player> addPlayer(@RequestBody PlayerDTO playerDTO){
+        logger.info("init addPlayer");
         Player addedPlayer = playerService.addPlayer(playerDTO);
+        logger.info("end Player");
         return new ResponseEntity<>(addedPlayer, HttpStatus.OK);
     }
 
@@ -72,7 +82,9 @@ public class PlayerController {
     })
     @PutMapping(value = "/players/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Player> modifyPlayer(@PathVariable long id, @RequestBody Player newPlayer){
+        logger.info("init modifyPlayer");
         Player player = playerService.modifyPlayer(id, newPlayer);
+        logger.info("end modifyPlayer");
         return new ResponseEntity<>(player, HttpStatus.OK);
     }
 
@@ -85,7 +97,9 @@ public class PlayerController {
     })
     @DeleteMapping(value = "/players/{id}", produces = "application/json")
     public ResponseEntity<Response> deletePlayer(@PathVariable long id){
+        logger.info("init deletePlayer");
         playerService.deletePlayer(id);
+        logger.info("end deletePlayer");
         return new ResponseEntity<>(Response.noErrorResponse(), HttpStatus.OK);
     }
 
@@ -94,6 +108,7 @@ public class PlayerController {
     @ResponseBody
     public ResponseEntity<Response> handleException(PlayerNotFoundException pnfe){
         Response response = Response.errorResponse(NOT_FOUND, pnfe.getMessage());
+        logger.error(pnfe.getMessage(), pnfe);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 

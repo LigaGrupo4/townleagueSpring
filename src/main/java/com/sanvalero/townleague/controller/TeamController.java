@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ import static com.sanvalero.townleague.domain.Response.NOT_FOUND;
 @Tag(name = "Teams", description = "Equipos de la liga")
 public class TeamController {
 
+    private final Logger logger = LoggerFactory.getLogger(TeamController.class);
+
     @Autowired
     TeamService teamService;
 
@@ -35,7 +39,9 @@ public class TeamController {
     })
     @GetMapping(value = "/teams", produces = "application/json")
     public ResponseEntity<Set<Team>> getTeams(){
+        logger.info("init getTeams");
         Set<Team> teams = teamService.findAllTeams();
+        logger.info("end getTeams");
         return new ResponseEntity<>(teams, HttpStatus.OK);
     }
 
@@ -47,7 +53,9 @@ public class TeamController {
     })
     @GetMapping(value = "/teams/{id}", produces = "application/json")
     public ResponseEntity<Team> getTeam(@PathVariable long id){
+        logger.info("init getTeam");
         Team team = teamService.findById(id).orElseThrow(()-> new TeamNotFoundException(id));
+        logger.info("end getTeam");
         return new ResponseEntity<>(team, HttpStatus.OK);
     }
 
@@ -58,7 +66,9 @@ public class TeamController {
     })
     @PostMapping(value = "/teams", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Team> addTeam(@RequestBody TeamDTO teamDTO){
+        logger.info("init addTeam");
         Team addedTeam = teamService.addTeam(teamDTO);
+        logger.info("end addTeam");
         return new ResponseEntity<>(addedTeam, HttpStatus.CREATED);
     }
 
@@ -71,7 +81,9 @@ public class TeamController {
     })
     @PutMapping(value = "/teams/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Team> modifyTeam(@PathVariable long id,@RequestBody Team newTeam){
+        logger.info("init modifyTeam");
         Team team = teamService.modifyTeam(id, newTeam);
+        logger.info("end modifyTeam");
         return new ResponseEntity<>(newTeam, HttpStatus.OK);
     }
 
@@ -84,7 +96,9 @@ public class TeamController {
     })
     @DeleteMapping(value = "/teams/{id}", produces = "application/json")
     public ResponseEntity<Response> deleteTeam(@PathVariable long id){
+        logger.info("init deleteTeam");
         teamService.deleteTeam(id);
+        logger.info("end deleteTeam");
         return new ResponseEntity<>(Response.noErrorResponse(), HttpStatus.OK);
     }
 
@@ -93,6 +107,7 @@ public class TeamController {
     @ResponseBody
     public ResponseEntity<Response> handlerException(TeamNotFoundException tnfe){
         Response response = Response.errorResponse(NOT_FOUND, tnfe.getMessage());
+        logger.error(tnfe.getMessage(), tnfe);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }

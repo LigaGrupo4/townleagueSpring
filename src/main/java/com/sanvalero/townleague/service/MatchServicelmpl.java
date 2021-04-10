@@ -7,6 +7,8 @@ import com.sanvalero.townleague.exception.RefereeNotFoundException;
 import com.sanvalero.townleague.exception.StadiumNotFoundException;
 import com.sanvalero.townleague.exception.TeamNotFoundException;
 import com.sanvalero.townleague.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import static com.sanvalero.townleague.Constants.VISITOR_CONDITION;
 
 @Service
 public class MatchServicelmpl implements MatchService {
+
+    private final Logger logger = LoggerFactory.getLogger(MatchService.class);
 
     @Autowired
     private MatchRepository matchRepository;
@@ -52,6 +56,7 @@ public class MatchServicelmpl implements MatchService {
 
     @Override
     public Match addMatch(MatchDTO matchDTO) {
+        logger.info("init addMatch");
         Match newMatch = new Match();
 
         Referee referee = refereeRepository.findByNameAndLastName(matchDTO.getRefereeName(), matchDTO.getRefereeLastName())
@@ -59,6 +64,8 @@ public class MatchServicelmpl implements MatchService {
 
         Stadium stadium = stadiumRepository.findByName(matchDTO.getStadiumName())
                 .orElseThrow(()->new StadiumNotFoundException(matchDTO.getStadiumName()));
+
+        logger.info("Stadium and Referee checked");
 
         newMatch.setDate(matchDTO.getMatchDate());
         newMatch.setReferee(referee);
@@ -74,6 +81,7 @@ public class MatchServicelmpl implements MatchService {
         Team visitingTeam = teamRepository.findByName(matchDTO.getVisitingTeamName())
                 .orElseThrow(()->new TeamNotFoundException(matchDTO.getVisitingTeamName()));
 
+        logger.info("Teams checked");
 
         localMatchDetail.setMatch(newMatch);
         localMatchDetail.setTeam(localTeam);
@@ -91,6 +99,7 @@ public class MatchServicelmpl implements MatchService {
         newMatch.addDetail(localMatchDetail);
         newMatch.addDetail(visitingMatchDetail);
 
+        logger.info("end addMatch");
         return matchRepository.save(newMatch);
     }
 

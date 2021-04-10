@@ -14,7 +14,6 @@ import java.util.Set;
 
 @Controller
 public class MatchAppWebController {
-
     @Autowired
     MatchService matchService;
 

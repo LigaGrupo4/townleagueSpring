@@ -26,18 +26,23 @@
             <a href="/register-match" target="_blank">Add</a>
         </div>
     </div>
+    <div class="dropdown">
+        <button class="dropbtn">CreLis
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="/web-stadiums">See Stadiums</a>
+            <a href="/">Crear</a>
+
+        </div>
+    </div>
 </div>
-
-
 <section id="pricing" class="pricing">
     <div class="container" data-aos="fade-up">
-
         <div class="section-title">
             <h3>Check our <span>Matches</span></h3>
         </div>
-
         <div class="row">
-
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="box">
                     <ul th:each="match : ${matches}">
@@ -48,6 +53,8 @@
                                     <p class="spa" th:text="${matchDetail.goals}"></p>
                                 </li>
                             </ul>
+                            <p><a th:href="@{'delete-match/' + ${match.id}}">Eliminar</a></p>
+                            <p><a th:href="@{'match/' + ${match.id} + '/insert-result'}">Introducir resultado</a></p>
                         </li>
                         <p><a class="eliminar" th:href="@{'match/' + ${match.id} + '/insert-result'}">Resultado</a></p>
                         <p><a class="eliminar" th:href="@{'delete-match/' + ${match.id}}">Eliminar</a></p>
@@ -55,8 +62,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </section>
 

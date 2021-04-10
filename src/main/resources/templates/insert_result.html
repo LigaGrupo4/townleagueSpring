@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert result</title>
+</head>
+<body>
+    <form th:action="@{'/match/' + ${matchId} + '/insert-result'}" th:object="${resultDTOForm}" method="post">
+        <ul>
+            <li>Goles local:<input type="number" th:field="*{localGoals}"></li>
+            <li>Goles visitante:<input type="number" th:field="*{visitorGoals}"></li>
+            <li><input type="submit" value="Insertar"></li>
+        </ul>
+    </form>
+</body>
+</html>

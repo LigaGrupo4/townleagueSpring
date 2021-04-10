@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,8 @@ import static com.sanvalero.townleague.domain.Response.NOT_FOUND;
 @Tag(name = "Referees", description = "Árbitros de la liga")
 public class RefereeController {
 
+    private final Logger logger = LoggerFactory.getLogger(RefereeController.class);
+
     @Autowired
     RefereeService refereeService;
 
@@ -34,7 +38,9 @@ public class RefereeController {
     })
     @GetMapping(value = "/referees", produces = "application/json")
     public ResponseEntity<Set<Referee>> getReferees(){
+        logger.info("init getReferees");
         Set<Referee> referees = refereeService.findAllReferees();
+        logger.info("end getReferees");
         return new ResponseEntity<>(referees, HttpStatus.OK);
     }
 
@@ -47,7 +53,9 @@ public class RefereeController {
     })
     @GetMapping(value = "/referees/{id}", produces = "application/json")
     public ResponseEntity<Referee> getReferee(@PathVariable long id){
+        logger.info("init getReferee");
         Referee referee = refereeService.findById(id).orElseThrow(()->new RefereeNotFoundException(id));
+        logger.info("end getReferee");
         return new ResponseEntity<>(referee, HttpStatus.OK);
     }
 
@@ -58,7 +66,9 @@ public class RefereeController {
     })
     @PostMapping(value = "/referees", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Referee> addReferee(@RequestBody Referee referee){
+        logger.info("init addReferee");
         Referee addedReferee = refereeService.addReferee(referee);
+        logger.info("end addReferee");
         return new ResponseEntity<>(addedReferee, HttpStatus.CREATED);
     }
 
@@ -71,7 +81,9 @@ public class RefereeController {
     })
     @PutMapping(value = "/referees/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Referee> modifyReferee(@PathVariable long id, @RequestBody Referee newReferee){
+        logger.info("init modifyReferee");
         Referee referee = refereeService.modifyReferee(id, newReferee);
+        logger.info("end modifyReferee");
         return new ResponseEntity<>(referee, HttpStatus.OK);
     }
 
@@ -84,7 +96,9 @@ public class RefereeController {
     })
     @DeleteMapping(value = "/referees/{id}", produces = "application/json")
     public ResponseEntity<Response> deleteReferee(@PathVariable long id){
+        logger.info("init deleteReferee");
         refereeService.deleteReferee(id);
+        logger.info("end deleteReferee");
         return new ResponseEntity<>(Response.noErrorResponse(), HttpStatus.OK);
     }
 
@@ -94,6 +108,7 @@ public class RefereeController {
     @ResponseBody
     public ResponseEntity<Response> handlerException(RefereeNotFoundException rnfe){
         Response response = Response.errorResponse(NOT_FOUND, rnfe.getMessage());
+        logger.error(rnfe.getMessage(), rnfe);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 

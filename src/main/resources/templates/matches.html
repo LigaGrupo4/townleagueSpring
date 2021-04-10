@@ -53,9 +53,6 @@
                                     <p class="spa" th:text="${matchDetail.goals}"></p>
                                 </li>
                             </ul>
-                            <p><a th:href="@{'delete-match/' + ${match.id}}">Eliminar</a></p>
-                            <p><a th:href="@{'match/' + ${match.id} + '/insert-result'}">Introducir resultado</a></p>
-                        </li>
                         <p><a class="eliminar" th:href="@{'match/' + ${match.id} + '/insert-result'}">Resultado</a></p>
                         <p><a class="eliminar" th:href="@{'delete-match/' + ${match.id}}">Eliminar</a></p>
                     </ul>

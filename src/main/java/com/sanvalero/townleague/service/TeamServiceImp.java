@@ -1,5 +1,6 @@
 package com.sanvalero.townleague.service;
 
+import com.sanvalero.townleague.domain.Match;
 import com.sanvalero.townleague.domain.Player;
 import com.sanvalero.townleague.domain.Team;
 import com.sanvalero.townleague.domain.dto.PlayerDTO;
@@ -11,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class TeamServiceImp implements TeamService{
@@ -25,7 +29,10 @@ public class TeamServiceImp implements TeamService{
 
     @Override
     public Set<Team> findAllTeams() {
-        return teamRepository.findAllOrderByPointsDesc();
+        Set<Team> teams = teamRepository.findAll().stream()
+                .sorted(Comparator.comparingInt(Team::getPoints).reversed())
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+        return teams;
     }
 
     @Override

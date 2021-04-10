@@ -3,13 +3,15 @@ package com.sanvalero.townleague.service;
 import com.sanvalero.townleague.domain.*;
 import com.sanvalero.townleague.domain.dto.MatchDTO;
 import com.sanvalero.townleague.domain.dto.ResultDTO;
-import com.sanvalero.townleague.exception.MatchNotFoundException;
-import com.sanvalero.townleague.exception.RefereeNotFoundException;
-import com.sanvalero.townleague.exception.StadiumNotFoundException;
-import com.sanvalero.townleague.exception.TeamNotFoundException;
+import com.sanvalero.townleague.exception.*;
 import com.sanvalero.townleague.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,7 @@ import java.util.Set;
 
 import static com.sanvalero.townleague.Constants.LOCAL_CONDITION;
 import static com.sanvalero.townleague.Constants.VISITOR_CONDITION;
+import static com.sanvalero.townleague.domain.Response.BAD_REQUEST;
 
 @Service
 public class MatchServicelmpl implements MatchService {
@@ -54,7 +57,14 @@ public class MatchServicelmpl implements MatchService {
     @Override
     public Match addMatch(MatchDTO matchDTO) {
         Match newMatch = new Match();
-
+        if (matchDTO.getLocalTeamName().equals("")
+                || matchDTO.getVisitingTeamName().equals("")
+                || matchDTO.getStadiumName().equals("")
+                || matchDTO.getRefereeName().equals("")
+                || matchDTO.getRefereeLastName().equals("")
+                || matchDTO.getMatchDate() == null) {
+            throw new MatchMandatoryFieldsException();
+        }
         Referee referee = refereeRepository.findByNameAndLastName(matchDTO.getRefereeName(), matchDTO.getRefereeLastName())
                 .orElseThrow(()->new RefereeNotFoundException(matchDTO.getRefereeName(), matchDTO.getRefereeLastName()));
 
@@ -144,5 +154,13 @@ public class MatchServicelmpl implements MatchService {
 
         teamRepository.save(localTeam);
         teamRepository.save(visitingTeam);
+    }
+
+    @ExceptionHandler(MatchMandatoryFieldsException.class)
+    @ResponseStatus
+    @ResponseBody
+    public ResponseEntity<Response> handlerException(MatchMandatoryFieldsException mmfe){
+        Response response = Response.errorResponse(BAD_REQUEST, mmfe.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }
